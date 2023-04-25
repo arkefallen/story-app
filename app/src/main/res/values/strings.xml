@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">StoryApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="success_register_title">Berhasil Mendaftar</string>
+    <string name="failure_register_title">Gagal Mendaftar</string>
+    <string name="success_register_description">Silahkan masuk menggunakan akun yang sudah didaftarkan</string>
+    <string name="failure_register_description">Terdapat kesalahan</string>
+    <string name="email_taken_description">User sudah terdaftar di sistem</string>
+    <string name="success_register_button">Masuk Sekarang</string>
+    <string name="failure_register_button">Coba Lagi</string>
+    <string name="success_register_animation">https://assets9.lottiefiles.com/packages/lf20_rc5d0f61.json</string>
+    <string name="failure_register_animation">https://assets9.lottiefiles.com/packages/lf20_t5ulirqh.json</string>
 </resources>
