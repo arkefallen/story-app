@@ -50,7 +50,7 @@
         app:layout_constraintStart_toStartOf="@+id/name_register"
         app:layout_constraintTop_toBottomOf="@+id/tv_register_description" />
 
-    <EditText
+    <com.dicoding.android.intermediate.storyapp.ui.customview.CustomEmailTextField
         android:id="@+id/email_register"
         android:layout_width="300dp"
         android:layout_height="50dp"

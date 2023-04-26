@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="@+id/label_email"
         app:layout_constraintTop_toBottomOf="@+id/tv_login_headline" />
 
-    <EditText
+    <com.dicoding.android.intermediate.storyapp.ui.customview.CustomEmailTextField
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:id="@+id/email_login"
@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="@+id/tv_register_description"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <EditText
+    <com.dicoding.android.intermediate.storyapp.ui.customview.CustomPasswordTextField
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:id="@+id/password_login"

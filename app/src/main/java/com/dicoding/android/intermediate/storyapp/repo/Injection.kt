@@ -1,4 +1,4 @@
-package com.dicoding.android.intermediate.storyapp.ui
+package com.dicoding.android.intermediate.storyapp.repo
 
 import android.content.Context
 import com.dicoding.android.intermediate.storyapp.data.remote.APIConfig

@@ -1,13 +1,10 @@
 package com.dicoding.android.intermediate.storyapp.repo
 
-import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.android.intermediate.storyapp.data.remote.APIService
 import com.dicoding.android.intermediate.storyapp.data.response.RegisterUserResponse
-import com.dicoding.android.intermediate.storyapp.ui.RegisterResultFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

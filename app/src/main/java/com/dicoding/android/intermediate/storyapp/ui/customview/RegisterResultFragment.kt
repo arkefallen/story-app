@@ -1,16 +1,14 @@
-package com.dicoding.android.intermediate.storyapp.ui
+package com.dicoding.android.intermediate.storyapp.ui.customview
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.airbnb.lottie.Lottie
 import com.dicoding.android.intermediate.storyapp.R
 import com.dicoding.android.intermediate.storyapp.databinding.FragmentRegisterResultBinding
-import java.lang.reflect.Constructor
+import com.dicoding.android.intermediate.storyapp.ui.LoginActivity
 
 class RegisterResultFragment(private val result: Boolean, private val status: String) : DialogFragment() {
 

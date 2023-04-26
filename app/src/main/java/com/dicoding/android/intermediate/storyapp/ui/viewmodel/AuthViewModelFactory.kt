@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.android.intermediate.storyapp.repo.Authentication
-import com.dicoding.android.intermediate.storyapp.ui.Injection
+import com.dicoding.android.intermediate.storyapp.repo.Injection
 
 class AuthViewModelFactory private constructor(private val authentication: Authentication)
     : ViewModelProvider.NewInstanceFactory(){

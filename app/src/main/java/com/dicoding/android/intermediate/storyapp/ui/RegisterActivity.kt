@@ -4,9 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityRegisterBinding
-import com.dicoding.android.intermediate.storyapp.repo.Authentication
+import com.dicoding.android.intermediate.storyapp.ui.customview.RegisterResultFragment
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModel
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModelFactory
 
