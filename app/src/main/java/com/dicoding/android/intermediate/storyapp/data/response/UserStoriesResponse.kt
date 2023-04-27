@@ -1,11 +1,13 @@
 package com.dicoding.android.intermediate.storyapp.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class UserStoriesResponse(
 
 	@field:SerializedName("listStory")
-	val listStory: List<ListStoryItem?>? = null,
+	val listStory: List<Story>? = null,
 
 	@field:SerializedName("error")
 	val error: Boolean? = null,
@@ -13,8 +15,8 @@ data class UserStoriesResponse(
 	@field:SerializedName("message")
 	val message: String? = null
 )
-
-data class ListStoryItem(
+@Parcelize
+data class Story(
 
 	@field:SerializedName("photoUrl")
 	val photoUrl: String? = null,
@@ -29,11 +31,12 @@ data class ListStoryItem(
 	val description: String? = null,
 
 	@field:SerializedName("lon")
-	val lon: Any? = null,
+	val lon: String? = null,
 
 	@field:SerializedName("id")
 	val id: String? = null,
 
 	@field:SerializedName("lat")
-	val lat: Any? = null
-)
+	val lat: String? = null
+
+) : Parcelable

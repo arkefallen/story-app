@@ -2,10 +2,9 @@ package com.dicoding.android.intermediate.storyapp.data.remote
 
 import com.dicoding.android.intermediate.storyapp.data.response.LoginUserResponse
 import com.dicoding.android.intermediate.storyapp.data.response.RegisterUserResponse
+import com.dicoding.android.intermediate.storyapp.data.response.UserStoriesResponse
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface APIService {
     @FormUrlEncoded
@@ -17,9 +16,16 @@ interface APIService {
     ): Call<RegisterUserResponse>
 
     @FormUrlEncoded
-    @POST("/login")
+    @POST("login")
     fun login(
         @Field("email") email: String,
         @Field("password") password: String
     ): Call<LoginUserResponse>
+
+    @GET("stories")
+    fun getStories(
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("location") location : Int
+    ) : Call<UserStoriesResponse>
 }

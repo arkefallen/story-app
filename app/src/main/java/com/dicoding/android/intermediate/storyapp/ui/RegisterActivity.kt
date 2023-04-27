@@ -13,6 +13,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var registerBinding: ActivityRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         registerBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(registerBinding.root)
 
@@ -22,13 +23,14 @@ class RegisterActivity : AppCompatActivity() {
 
         val btnRegister = registerBinding.btnRegister
         btnRegister.setOnClickListener {
+
             val fragmentManager = supportFragmentManager
             val name = registerBinding.nameRegister.text.toString()
             val email = registerBinding.emailRegister.text.toString()
             val password = registerBinding.passwordRegister.text.toString()
             authViewModel.registerUser(name, email, password)
 
-            authViewModel.getResponseStatus().observe(
+            authViewModel.getRegisterResponseStatus().observe(
                 this, {
                     if (it.error == false) {
                         RegisterResultFragment(true, it.message!!).show(fragmentManager, RegisterResultFragment::class.java.simpleName)
@@ -37,7 +39,6 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             )
-
         }
 
         val loginText = registerBinding.tvLoginClick
