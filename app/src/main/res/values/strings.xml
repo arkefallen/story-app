@@ -12,4 +12,8 @@
     <string name="success_register_animation">https://assets9.lottiefiles.com/packages/lf20_rc5d0f61.json</string>
     <string name="failure_register_animation">https://assets9.lottiefiles.com/packages/lf20_t5ulirqh.json</string>
     <string name="failure_login_title">Gagal Login</string>
+    <string name="settings_lang">Ubah bahasa sesuai kondisi lokal</string>
+    <string name="settings_lang_title">Bahasa</string>
+    <string name="settings_logout_title">Logout</string>
+    <string name="settings_logout_desc">Keluar dari aplikasi</string>
 </resources>
