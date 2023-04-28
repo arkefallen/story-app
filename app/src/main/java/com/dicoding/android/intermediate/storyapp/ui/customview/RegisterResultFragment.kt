@@ -20,7 +20,7 @@ class RegisterResultFragment(private val result: Boolean, private val status: St
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentRegisterResultBinding.inflate(inflater, container, false)
-        if (result) {
+        if (result == true) {
             binding.titleResult.text = getString(R.string.success_register_title)
             binding.descriptionResult.text = getString(R.string.success_register_description)
             binding.lottieAnimationView.setAnimationFromUrl(getString(R.string.success_register_animation))

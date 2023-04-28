@@ -64,4 +64,10 @@ class AuthViewModel(private val authentication: Authentication) : ViewModel() {
             preferences?.saveUserName(name)
         }
     }
+
+    fun clearData() {
+        viewModelScope.launch {
+            preferences?.clearData()
+        }
+    }
 }

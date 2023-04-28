@@ -3,6 +3,7 @@ package com.dicoding.android.intermediate.storyapp.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityRegisterBinding
 import com.dicoding.android.intermediate.storyapp.ui.customview.RegisterResultFragment
@@ -33,9 +34,16 @@ class RegisterActivity : AppCompatActivity() {
             authViewModel.getRegisterResponseStatus().observe(
                 this, {
                     if (it.error == false) {
-                        RegisterResultFragment(true, it.message!!).show(fragmentManager, RegisterResultFragment::class.java.simpleName)
-                    } else if (it.error!!) {
-                        RegisterResultFragment(false, it.message!!).show(fragmentManager, RegisterResultFragment::class.java.simpleName)
+                        RegisterResultFragment(true, it.message.toString()).show(
+                            fragmentManager,
+                            RegisterResultFragment::class.java.simpleName
+                        )
+                    }
+                    if (it.error == true) {
+                        RegisterResultFragment(false, it.message.toString()).show(
+                            fragmentManager,
+                            RegisterResultFragment::class.java.simpleName
+                        )
                     }
                 }
             )
@@ -47,5 +55,15 @@ class RegisterActivity : AppCompatActivity() {
             loginIntent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             startActivity(loginIntent)
         }
+
+        authViewModel.isResponseLoaded().observe(
+            this, {
+                if (it) {
+                    registerBinding.registerLoading.visibility = View.VISIBLE
+                } else {
+                    registerBinding.registerLoading.visibility = View.GONE
+                }
+            }
+        )
     }
 }

@@ -1,5 +1,6 @@
 package com.dicoding.android.intermediate.storyapp.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -75,7 +76,8 @@ class StoriesActivity : AppCompatActivity() {
 
         val settings = storiesBinding.settings
         settings.setOnClickListener {
-
+            val settingsIntent = Intent(this, SettingsActivity::class.java)
+            startActivity(settingsIntent)
         }
     }
 
