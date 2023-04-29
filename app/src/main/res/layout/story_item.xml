@@ -19,6 +19,7 @@
 
         <ImageView
             android:id="@+id/iv_image"
+            android:transitionName="user_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,12 +34,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/rubik_bold"
+            android:transitionName="user_name"
             android:text="Nama User"
             app:chipBackgroundColor="#02F1D9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_image" />
 
         <TextView
+            android:transitionName="user_story_description"
             android:id="@+id/tv_item_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

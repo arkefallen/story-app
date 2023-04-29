@@ -1,8 +1,11 @@
 package com.dicoding.android.intermediate.storyapp.ui.customview
 
+import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
+import androidx.core.util.*
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dicoding.android.intermediate.storyapp.data.response.Story
@@ -29,7 +32,14 @@ class StoryAdapter(private val listStory : List<Story>) : RecyclerView.Adapter<S
                 putExtra(DetailStoryActivity.EXTRA_IMAGE, listStory[position].photoUrl)
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
-            holder.itemView.context.startActivity(detailIntent)
+            val optionsCompat : ActivityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    holder.itemView.context as Activity,
+                    Pair(holder.binding.ivImage, "user_image"),
+                    Pair(holder.binding.tvItemDescription, "user_story_description"),
+                    Pair(holder.binding.itemUsernameChip, "user_name")
+                )
+            holder.itemView.context.startActivity(detailIntent, optionsCompat.toBundle())
         }
     }
 
