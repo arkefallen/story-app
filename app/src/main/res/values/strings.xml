@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">StoryApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">Story App</string>
     <string name="success_register_title">Berhasil Mendaftar</string>
     <string name="failure_register_title">Gagal Mendaftar</string>
     <string name="success_register_description">Silahkan masuk menggunakan akun yang sudah didaftarkan</string>
@@ -9,11 +7,29 @@
     <string name="email_taken_description">User sudah terdaftar di sistem</string>
     <string name="success_register_button">Masuk Sekarang</string>
     <string name="failure_register_button">Coba Lagi</string>
-    <string name="success_register_animation">https://assets9.lottiefiles.com/packages/lf20_rc5d0f61.json</string>
-    <string name="failure_register_animation">https://assets9.lottiefiles.com/packages/lf20_t5ulirqh.json</string>
+    <string name="success_register_animation" translatable="false">https://assets9.lottiefiles.com/packages/lf20_rc5d0f61.json</string>
+    <string name="failure_register_animation" translatable="false">https://assets9.lottiefiles.com/packages/lf20_t5ulirqh.json</string>
     <string name="failure_login_title">Gagal Login</string>
-    <string name="settings_lang">Ubah bahasa sesuai kondisi lokal</string>
+    <string name="settings_lang" translatable="false">Ubah bahasa sesuai kondisi lokal</string>
     <string name="settings_lang_title">Bahasa</string>
-    <string name="settings_logout_title">Logout</string>
+    <string name="settings_logout_title">Keluar Akun</string>
     <string name="settings_logout_desc">Keluar dari aplikasi</string>
+    <string name="tv_welcome_story">Selamat datang,</string>
+    <string name="tv_login_title">Masuk Akun</string>
+    <string name="tv_password_title">Kata Sandi</string>
+    <string name="tv_login_description">Masukkan email dan password Anda</string>
+    <string name="btn_login_text">MASUK</string>
+    <string name="tv_register_question">Belum memiliki akun?</string>
+    <string name="tv_register_click">Daftar Sekarang</string>
+    <string name="tv_register_description">Masukkan nama, email, dan password kamu ya!</string>
+    <string name="tv_register_title">Daftar Akun</string>
+    <string name="tv_user_name">Nama Lengkap</string>
+    <string name="btn_register_text">DAFTAR</string>
+    <string name="tv_login_question">Sudah punya akun?</string>
+    <string name="tv_login_click">Masuk Sekarang</string>
+    <string name="settings_page_title">Setelan</string>
+    <string name="dialog_confirmation_title">Konfirmasi</string>
+    <string name="dialog_confirmation_description">Apakah Anda yakin ingin keluar?</string>
+    <string name="dialog_negative_button">Tidak</string>
+    <string name="dialog_positive_button">Ya</string>
 </resources>

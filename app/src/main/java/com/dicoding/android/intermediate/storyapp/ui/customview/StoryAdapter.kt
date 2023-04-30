@@ -34,10 +34,7 @@ class StoryAdapter(private val listStory : List<Story>) : RecyclerView.Adapter<S
             }
             val optionsCompat : ActivityOptionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    holder.itemView.context as Activity,
-                    Pair(holder.binding.ivImage, "user_image"),
-                    Pair(holder.binding.tvItemDescription, "user_story_description"),
-                    Pair(holder.binding.itemUsernameChip, "user_name")
+                    holder.itemView.context as Activity
                 )
             holder.itemView.context.startActivity(detailIntent, optionsCompat.toBundle())
         }

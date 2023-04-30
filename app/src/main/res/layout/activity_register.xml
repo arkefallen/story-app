@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/rubik_regular"
-        android:text="Daftar akun untuk memulai"
+        android:text="@string/tv_register_description"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="@+id/label_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_register_headline" />
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:labelFor="@id/name_register"
-        android:text="Name"
+        android:text="@string/tv_user_name"
         app:layout_constraintStart_toStartOf="@+id/name_register"
         app:layout_constraintTop_toBottomOf="@+id/tv_register_description" />
 
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:labelFor="@id/password_register"
-        android:text="Password"
+        android:text="@string/tv_password_title"
         app:layout_constraintStart_toStartOf="@+id/password_register"
         app:layout_constraintTop_toBottomOf="@+id/email_register" />
 
@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/rubik_bold"
-        android:text="Sign-Up"
+        android:text="@string/tv_register_title"
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -116,7 +116,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/blue"
-        android:text="DAFTAR"
+        android:text="@string/btn_register_text"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Sudah punya akun? "
+        android:text="@string/tv_login_question"
         android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/tv_login_click"
         app:layout_constraintHorizontal_bias="0.5"
@@ -142,7 +142,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Masuk Sekarang"
+        android:text="@string/tv_login_click"
         android:textColor="@color/blue"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

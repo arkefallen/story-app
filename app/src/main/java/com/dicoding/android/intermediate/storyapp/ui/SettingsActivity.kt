@@ -19,7 +19,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.title = "Setelan"
+        supportActionBar?.title = getString(R.string.settings_page_title)
         supportActionBar?.elevation = 0f
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -39,14 +39,14 @@ class SettingsActivity : AppCompatActivity() {
         val itemCardLogout = settingsBinding.cardLogout
         itemCardLogout.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("Konfirmasi Logout")
-                .setMessage("Apakah anda yakin ingin keluar?")
-                .setNegativeButton("Tidak",
+                .setTitle(getString(R.string.dialog_confirmation_title))
+                .setMessage(getString(R.string.dialog_confirmation_description))
+                .setNegativeButton(getString(R.string.dialog_negative_button),
                     { dialogInterface, id ->
                         dialogInterface.cancel()
                     }
                 )
-                .setPositiveButton("Ya",
+                .setPositiveButton(getString(R.string.dialog_positive_button),
                     { dialogInterface, id ->
                         authViewModel.clearData()
                         val loginIntent = Intent(this, LoginActivity::class.java)

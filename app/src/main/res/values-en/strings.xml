@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="success_register_title">Success Register</string>
+    <string name="failure_register_title">Failed Register</string>
+    <string name="success_register_description">Login with existing accounts</string>
+    <string name="failure_register_description">An error occured</string>
+    <string name="email_taken_description">User already taken</string>
+    <string name="success_register_button">ign In Now</string>
+    <string name="failure_register_button">Try Again</string>
+    <string name="failure_login_title">Failed Login</string>
+    <string name="settings_lang_title">Language</string>
+    <string name="settings_logout_title">Logout</string>
+    <string name="settings_logout_desc">Sign out from application</string>
+    <string name="tv_welcome_story">"Welcome, "</string>
+    <string name="tv_login_title">Sign In Account</string>
+    <string name="tv_password_title">Password</string>
+    <string name="tv_login_description">Input your email and password</string>
+    <string name="btn_login_text">LOGIN</string>
+    <string name="tv_register_question">Don\'t have an account?</string>
+    <string name="tv_register_click">Register Now</string>
+    <string name="tv_register_description">Input your fullname, email, and password</string>
+    <string name="tv_register_title">Sign Up Account</string>
+    <string name="tv_user_name">Full Name</string>
+    <string name="btn_register_text">REGISTER</string>
+    <string name="tv_login_question">Already have an account?</string>
+    <string name="tv_login_click">Login Now</string>
+    <string name="settings_page_title">Settings</string>
+    <string name="dialog_confirmation_title">Confirmation</string>
+    <string name="dialog_confirmation_description">Are you sure want to logout?</string>
+    <string name="dialog_negative_button">No</string>
+    <string name="dialog_positive_button">Yes</string>
+</resources>
