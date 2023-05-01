@@ -6,6 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.StoriesActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_insert_story"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:foregroundTint="@color/white"
+        android:tint="@color/blue"
+        app:backgroundTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:rippleColor="#FFFFFF"
+        app:srcCompat="@drawable/baseline_add_24" />
+
     <ImageView
         android:id="@+id/settings"
         android:layout_width="30dp"

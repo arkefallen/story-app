@@ -57,6 +57,14 @@ class StoriesActivity : AppCompatActivity() {
                         this.rvStory.layoutManager = LinearLayoutManager(this@StoriesActivity)
                     }
 
+                    val fabInsertStory = storiesBinding.fabInsertStory
+                    fabInsertStory.setOnClickListener { view ->
+                        val postStoryIntent = Intent(this, PostStoryActivity::class.java).apply {
+                            this.putExtra(PostStoryActivity.EXTRA_USER_TOKEN, it)
+                        }
+                        startActivity(postStoryIntent)
+                    }
+
                     val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(it) }
 
                     storyViewModel.getStories(1,10,0)
@@ -68,6 +76,7 @@ class StoriesActivity : AppCompatActivity() {
                                 storiesBinding.rvStory.adapter = adapter
                                 storiesBinding.rvStory.setHasFixedSize(true)
                             }
+
                         }
                     )
                 }
@@ -79,6 +88,8 @@ class StoriesActivity : AppCompatActivity() {
             val settingsIntent = Intent(this, SettingsActivity::class.java)
             startActivity(settingsIntent)
         }
+
+
     }
 
     override fun onBackPressed() {

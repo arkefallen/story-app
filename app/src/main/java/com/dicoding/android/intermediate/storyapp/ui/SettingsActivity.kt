@@ -1,6 +1,5 @@
 package com.dicoding.android.intermediate.storyapp.ui
 
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

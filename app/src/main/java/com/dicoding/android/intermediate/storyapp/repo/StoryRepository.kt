@@ -5,8 +5,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.android.intermediate.storyapp.data.remote.APIService
+import com.dicoding.android.intermediate.storyapp.data.response.PostStoryResponse
 import com.dicoding.android.intermediate.storyapp.data.response.Story
 import com.dicoding.android.intermediate.storyapp.data.response.UserStoriesResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +23,9 @@ class StoryRepository private constructor(
 
     private val _storyResponseLiveData = MutableLiveData<UserStoriesResponse>()
     val storiesResponse : LiveData<UserStoriesResponse> = _storyResponseLiveData
+
+    private val _uploadStoryLiveData = MutableLiveData<PostStoryResponse>()
+    val uploadStoryResponse : LiveData<PostStoryResponse> = _uploadStoryLiveData
 
     private val _listStoryLiveData = MutableLiveData<List<Story>?>()
     val listStory : LiveData<List<Story>?> = _listStoryLiveData
@@ -60,6 +66,44 @@ class StoryRepository private constructor(
                     )
                     _storyResponseLiveData.value = storiesResponse
                     _listStoryLiveData.value = ArrayList()
+                }
+            }
+        )
+    }
+
+    fun addStory(
+        image : MultipartBody.Part,
+        description: RequestBody
+    ) {
+        _isLoadingLiveData.value = true
+
+        val client = apiService.addStory(description, image)
+
+        client.enqueue(
+            object : Callback<PostStoryResponse> {
+                override fun onResponse(
+                    call: Call<PostStoryResponse>,
+                    response: Response<PostStoryResponse>
+                ) {
+                    _isLoadingLiveData.value = true
+                    val responseBody = response.body()
+                    Log.e(TAG, "onResponse: ${response.message()}")
+                    if (responseBody != null) {
+                        val uploadStoryResponse = PostStoryResponse(
+                            responseBody.error,
+                            responseBody.message
+                        )
+                        _uploadStoryLiveData.value = uploadStoryResponse
+                    }
+                }
+
+                override fun onFailure(call: Call<PostStoryResponse>, t: Throwable) {
+                    Log.e(TAG, "onResponse: ${t.message}")
+                    val uploadStoryResponse = PostStoryResponse(
+                        true,
+                        t.message.toString()
+                    )
+                    _uploadStoryLiveData.value = uploadStoryResponse
                 }
             }
         )
