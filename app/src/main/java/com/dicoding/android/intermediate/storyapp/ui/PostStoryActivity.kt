@@ -22,8 +22,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.dicoding.android.intermediate.storyapp.R
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityPostStoryBinding
-import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModel
-import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModelFactory
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModel
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModelFactory
 import okhttp3.MediaType.Companion.toMediaType
@@ -92,27 +90,20 @@ class PostStoryActivity : AppCompatActivity() {
 
     private fun startGallery() {
         val intent = Intent()
-        // Action to get device content
         intent.action = Intent.ACTION_GET_CONTENT
-        // Set the data type of the content
         intent.type = "image/*"
-        // Move to gallery to choose image
-        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        val chooser = Intent.createChooser(intent, getString(R.string.intent_camera_chooser))
         launcherIntentGallery.launch(chooser)
     }
 
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        // When the intent sent back a result
         if (result.resultCode == RESULT_OK) {
-            // Receive the data as URI
             val selectedImg = result.data?.data as Uri
             selectedImg.let { uri ->
-                // Make a temp file to contain the image from URI
                 val myFile = uriToFile(uri, this@PostStoryActivity)
                 getFile = myFile
-                // Display it to the ImageView
                 postStoryBinding.ivPreview.setImageURI(uri)
             }
         }
@@ -123,24 +114,11 @@ class PostStoryActivity : AppCompatActivity() {
     ) {
         if (it.resultCode == RESULT_OK) {
             val myFile = File(currentPhotoPath)
-
             myFile.let { file ->
                 getFile = file
                 postStoryBinding.ivPreview.setImageBitmap(BitmapFactory.decodeFile(file.path))
             }
         }
-    }
-
-    fun rotateFile(file: File, isBackCamera: Boolean = false) {
-        val matrix = Matrix()
-        val bitmap = BitmapFactory.decodeFile(file.path)
-        val rotation = if (isBackCamera) -90f else 90f
-        matrix.postRotate(rotation)
-        if (!isBackCamera) {
-            matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
-        }
-        val result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
-        result.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -157,13 +135,12 @@ class PostStoryActivity : AppCompatActivity() {
 
     fun uriToFile(selectedImg: Uri, context: Context): File {
         val contentResolver: ContentResolver = context.contentResolver
-        // Make temporary file
         val myFile = createTempFile(context)
-        // Use stream to write from URI into file
         val inputStream = contentResolver.openInputStream(selectedImg) as InputStream
         val outputStream: OutputStream = FileOutputStream(myFile)
         val buf = ByteArray(1024)
         var len: Int
+
         while (inputStream.read(buf).also { len = it } > 0) outputStream.write(buf, 0, len)
         outputStream.close()
         inputStream.close()
@@ -198,7 +175,6 @@ class PostStoryActivity : AppCompatActivity() {
         val bitmap = BitmapFactory.decodeFile(file.path)
         var compressQuality = 100
         var streamLength: Int
-        // Do compress the the file in few iterations to get minimum size below 1MB
         do {
             val bmpStream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream)

@@ -56,26 +56,24 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             val email = loginBinding.emailLogin.text.toString()
             val password = loginBinding.passwordLogin.text.toString()
-            authViewModel.loginUser(email, password)
+            authViewModel.loginUser(email, password, supportFragmentManager)
+        }
 
-            authViewModel.getLoginResponseStatus().observe(
-                this, {
-                    if (it.error == true) {
-                        LoginResultFragment(it.message!!).show(supportFragmentManager, LoginResultFragment::class.java.simpleName)
-                    } else if (it.error == false) {
-                        if (it.loginResult != null) {
-                            authViewModel.saveUserName(it.loginResult.name!!)
-                            authViewModel.saveUserToken(it.loginResult.token!!)
-                            val storiesIntent = Intent(this, StoriesActivity::class.java).apply {
-                                putExtra(StoriesActivity.EXTRA_USER_NAME, username)
-                            }
-                            startActivity(storiesIntent)
-                            finish()
+        authViewModel.getLoginResponseStatus().observe(
+            this, {
+                if (it.error == false) {
+                    if (it.loginResult != null) {
+                        authViewModel.saveUserName(it.loginResult.name!!)
+                        authViewModel.saveUserToken(it.loginResult.token!!)
+                        val storiesIntent = Intent(this, StoriesActivity::class.java).apply {
+                            putExtra(StoriesActivity.EXTRA_USER_NAME, username)
                         }
+                        startActivity(storiesIntent)
+                        finish()
                     }
                 }
-            )
-        }
+            }
+        )
 
         authViewModel.isResponseLoaded().observe(
             this, {

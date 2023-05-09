@@ -16,10 +16,9 @@ class LoginResultFragment(private val message: String) : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         binding = FragmentLoginResultBinding.inflate(inflater, container, false)
         binding.titleResult.text = getString(R.string.failure_login_title)
-        binding.descriptionResult.text = "Error : ${message}"
+        binding.descriptionResult.text = "Error: ${message}}"
         binding.lottieAnimationView.setAnimationFromUrl(getString(R.string.failure_register_animation))
         binding.btnLoginResult.setText(getString(R.string.failure_register_button))
         binding.btnLoginResult.setBackgroundColor(resources.getColor(R.color.red))

@@ -4,6 +4,8 @@
     <string name="failure_register_title">Gagal Mendaftar</string>
     <string name="success_register_description">Silahkan masuk menggunakan akun yang sudah didaftarkan</string>
     <string name="failure_register_description">Terdapat kesalahan</string>
+    <string name="failure_register_description_email_taken">Email sudah terdaftar pada sistem</string>
+    <string name="failure_login_description">Terdapat kesalahan</string>
     <string name="email_taken_description">User sudah terdaftar di sistem</string>
     <string name="success_register_button">Masuk Sekarang</string>
     <string name="failure_register_button">Coba Lagi</string>
@@ -33,4 +35,15 @@
     <string name="dialog_negative_button">Tidak</string>
     <string name="dialog_positive_button">Ya</string>
     <string name="add_story_page_title">Tambah Story Baru</string>
+    <string name="btn_submit_post">KIRIM</string>
+    <string name="camera_post">Pilih Foto</string>
+    <string name="desc_post">Isi Deskripsi</string>
+    <string name="gallery_opt">PILIH GALERI</string>
+    <string name="camera_option">PILIH KAMERA</string>
+    <string name="intent_camera_chooser">Pilih Gambar</string>
+    <string name="title_activity_user_stories_location">UserStoriesLocationActivity</string>
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>

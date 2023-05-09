@@ -1,11 +1,14 @@
 package com.dicoding.android.intermediate.storyapp.repo
 
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.android.intermediate.storyapp.data.remote.APIService
 import com.dicoding.android.intermediate.storyapp.data.response.LoginUserResponse
 import com.dicoding.android.intermediate.storyapp.data.response.RegisterUserResponse
+import com.dicoding.android.intermediate.storyapp.ui.customview.LoginResultFragment
+import com.dicoding.android.intermediate.storyapp.ui.customview.RegisterResultFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +27,8 @@ class Authentication(private val apiService: APIService) {
     fun registerUser(
         name : String,
         email : String,
-        password : String
+        password : String,
+        fragment: FragmentManager
     ) {
         _isLoadingLiveData.value = true
 
@@ -38,7 +42,18 @@ class Authentication(private val apiService: APIService) {
                 ) {
                     _isLoadingLiveData.value = false
                     val responseBody = response.body()
-                    Log.e(TAG, "onResponse: ${response.message()}")
+                    if (response.isSuccessful) {
+                        Log.e(TAG, "onResponse: ${response.message()}")
+                        RegisterResultFragment(false, response.message()).show(
+                            fragment,
+                            RegisterResultFragment::class.java.simpleName
+                        )
+                    } else {
+                        RegisterResultFragment(true, response.message()).show(
+                            fragment,
+                            RegisterResultFragment::class.java.simpleName
+                        )
+                    }
                     val registerUserResponse = RegisterUserResponse(
                         responseBody?.error,
                         responseBody?.message
@@ -47,6 +62,10 @@ class Authentication(private val apiService: APIService) {
                 }
 
                 override fun onFailure(call: Call<RegisterUserResponse>, t: Throwable) {
+                    RegisterResultFragment(false, t.message.toString()).show(
+                        fragment,
+                        RegisterResultFragment::class.java.simpleName
+                    )
                     Log.e(TAG, "onFailure: ${t.message}")
                     val registerUserResponse = RegisterUserResponse(
                         true,
@@ -60,7 +79,8 @@ class Authentication(private val apiService: APIService) {
 
     fun loginUser(
         email: String,
-        password: String
+        password: String,
+        fragment: FragmentManager
     ) {
         _isLoadingLiveData.value = true
 
@@ -75,6 +95,9 @@ class Authentication(private val apiService: APIService) {
                     _isLoadingLiveData.value = false
                     val responseBody = response.body()
                     Log.e(TAG, "onResponse: ${response.message()}")
+                    if (response.isSuccessful == false) {
+                        LoginResultFragment(responseBody?.message.toString()).show(fragment, LoginResultFragment::class.java.simpleName)
+                    }
                     val loginUserResponse = LoginUserResponse(
                         responseBody?.loginResult,
                         responseBody?.error,
@@ -84,6 +107,10 @@ class Authentication(private val apiService: APIService) {
                 }
 
                 override fun onFailure(call: Call<LoginUserResponse>, t: Throwable) {
+                    RegisterResultFragment(false, t.message.toString()).show(
+                        fragment,
+                        RegisterResultFragment::class.java.simpleName
+                    )
                     Log.e(TAG, "onFailure: ${t.message}")
                     val loginUserResponse = LoginUserResponse(
                         null,

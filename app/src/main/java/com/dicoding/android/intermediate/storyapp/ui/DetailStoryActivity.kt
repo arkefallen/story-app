@@ -3,7 +3,6 @@ package com.dicoding.android.intermediate.storyapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
-import com.dicoding.android.intermediate.storyapp.*
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityDetailStoryBinding
 
 class DetailStoryActivity : AppCompatActivity() {

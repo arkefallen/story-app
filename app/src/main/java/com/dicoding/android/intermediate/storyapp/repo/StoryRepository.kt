@@ -1,6 +1,5 @@
 package com.dicoding.android.intermediate.storyapp.repo
 
-
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

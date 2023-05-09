@@ -3,7 +3,6 @@ package com.dicoding.android.intermediate.storyapp.ui.customview
 import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
-import androidx.core.util.*
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView

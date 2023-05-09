@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.android.intermediate.storyapp.data.response.Story
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityStoriesBinding
 import com.dicoding.android.intermediate.storyapp.repo.UserPreferences
 import com.dicoding.android.intermediate.storyapp.ui.customview.StoryAdapter
@@ -16,6 +17,7 @@ import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModelFac
 
 class StoriesActivity : AppCompatActivity() {
     private lateinit var storiesBinding: ActivityStoriesBinding
+    private var stories : ArrayList<Story>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,8 +77,13 @@ class StoriesActivity : AppCompatActivity() {
                                 val adapter = StoryAdapter(it)
                                 storiesBinding.rvStory.adapter = adapter
                                 storiesBinding.rvStory.setHasFixedSize(true)
-                            }
 
+                                it.forEach { story ->
+                                    if (stories?.contains(story)!! == false) {
+                                        stories?.add(story)
+                                    }
+                                }
+                            }
                         }
                     )
                 }
@@ -89,9 +96,17 @@ class StoriesActivity : AppCompatActivity() {
             startActivity(settingsIntent)
         }
 
-
+        val maps = storiesBinding.maps
+        maps.setOnClickListener {
+            val userLocationIntent = Intent(this, UserStoriesLocationActivity::class.java).apply {
+                this.putParcelableArrayListExtra(UserStoriesLocationActivity.EXTRA_USER_STORIES, stories)
+            }
+            startActivity(userLocationIntent)
+        }
     }
 
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         finish()

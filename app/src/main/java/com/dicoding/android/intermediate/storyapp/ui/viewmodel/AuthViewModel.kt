@@ -1,6 +1,7 @@
 package com.dicoding.android.intermediate.storyapp.ui.viewmodel
 
 import android.util.Log
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -23,19 +24,21 @@ class AuthViewModel(private val authentication: Authentication) : ViewModel() {
     fun registerUser(
         name: String,
         email: String,
-        password: String
+        password: String,
+        fragment: FragmentManager
     ) {
         viewModelScope.launch {
-            authentication.registerUser(name, email, password)
+            authentication.registerUser(name, email, password,fragment)
         }
     }
 
     fun loginUser(
         email: String,
-        password: String
+        password: String,
+        fragment: FragmentManager
     ) {
         viewModelScope.launch {
-            authentication.loginUser(email, password)
+            authentication.loginUser(email, password, fragment)
         }
     }
 
