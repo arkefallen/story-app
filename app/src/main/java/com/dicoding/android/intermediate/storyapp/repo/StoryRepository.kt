@@ -20,9 +20,6 @@ class StoryRepository private constructor(
     private val _isLoadingLiveData = MutableLiveData<Boolean>()
     val isLoading : LiveData<Boolean> = _isLoadingLiveData
 
-    private val _storyResponseLiveData = MutableLiveData<UserStoriesResponse>()
-    val storiesResponse : LiveData<UserStoriesResponse> = _storyResponseLiveData
-
     private val _uploadStoryLiveData = MutableLiveData<PostStoryResponse>()
     val uploadStoryResponse : LiveData<PostStoryResponse> = _uploadStoryLiveData
 
@@ -47,23 +44,11 @@ class StoryRepository private constructor(
                     _isLoadingLiveData.value = true
                     val responseBody = response.body()
                     Log.e(TAG, "onResponse: ${response.message()}")
-                    val storiesResponse = UserStoriesResponse(
-                        responseBody?.listStory,
-                        responseBody?.error,
-                        responseBody?.message
-                    )
-                    _storyResponseLiveData.value = storiesResponse
                     _listStoryLiveData.value = responseBody?.listStory
                 }
 
                 override fun onFailure(call: Call<UserStoriesResponse>, t: Throwable) {
                     Log.e(TAG, "onFailure: ${t.message}")
-                    val storiesResponse = UserStoriesResponse(
-                        ArrayList(),
-                        true,
-                        t.message
-                    )
-                    _storyResponseLiveData.value = storiesResponse
                     _listStoryLiveData.value = ArrayList()
                 }
             }

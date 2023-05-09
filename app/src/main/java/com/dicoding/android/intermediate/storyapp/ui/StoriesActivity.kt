@@ -1,8 +1,8 @@
 package com.dicoding.android.intermediate.storyapp.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +17,7 @@ import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModelFac
 
 class StoriesActivity : AppCompatActivity() {
     private lateinit var storiesBinding: ActivityStoriesBinding
-    private var stories : ArrayList<Story>? = null
+    private lateinit var stories : ArrayList<Story>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,7 +69,7 @@ class StoriesActivity : AppCompatActivity() {
 
                     val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(it) }
 
-                    storyViewModel.getStories(1,10,0)
+                    storyViewModel.getStories(1,10,1)
 
                     storyViewModel.getAllStories().observe(
                         this, {
@@ -78,10 +78,17 @@ class StoriesActivity : AppCompatActivity() {
                                 storiesBinding.rvStory.adapter = adapter
                                 storiesBinding.rvStory.setHasFixedSize(true)
 
-                                it.forEach { story ->
-                                    if (stories?.contains(story)!! == false) {
-                                        stories?.add(story)
-                                    }
+                                stories = ArrayList()
+
+                                it.forEach {
+                                    stories.add(it)
+                                }
+
+                                val maps = storiesBinding.maps
+                                maps.setOnClickListener {
+                                    val userLocationIntent = Intent(this@StoriesActivity, UserStoriesLocationActivity::class.java)
+                                    userLocationIntent.putParcelableArrayListExtra(UserStoriesLocationActivity.EXTRA_USER_STORIES, stories)
+                                    startActivity(userLocationIntent)
                                 }
                             }
                         }
@@ -90,18 +97,14 @@ class StoriesActivity : AppCompatActivity() {
             }
         )
 
+//        if (stories != null) {
+//
+//        }
+
         val settings = storiesBinding.settings
         settings.setOnClickListener {
-            val settingsIntent = Intent(this, SettingsActivity::class.java)
+            val settingsIntent = Intent(this@StoriesActivity, SettingsActivity::class.java)
             startActivity(settingsIntent)
-        }
-
-        val maps = storiesBinding.maps
-        maps.setOnClickListener {
-            val userLocationIntent = Intent(this, UserStoriesLocationActivity::class.java).apply {
-                this.putParcelableArrayListExtra(UserStoriesLocationActivity.EXTRA_USER_STORIES, stories)
-            }
-            startActivity(userLocationIntent)
         }
     }
 
