@@ -2,10 +2,11 @@ package com.dicoding.android.intermediate.storyapp.repo
 
 import android.util.Log
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.stringPreferencesKey
-import kotlinx.coroutines.flow.*
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class UserPreferences private constructor(private val dataStore: DataStore<Preferences>){
     private val tokenKey = stringPreferencesKey("token")

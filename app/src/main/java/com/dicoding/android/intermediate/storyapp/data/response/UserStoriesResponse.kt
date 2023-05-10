@@ -15,6 +15,7 @@ data class UserStoriesResponse(
 	@field:SerializedName("message")
 	val message: String? = null
 )
+
 @Parcelize
 data class Story(
 

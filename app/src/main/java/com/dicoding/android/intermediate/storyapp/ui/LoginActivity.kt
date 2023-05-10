@@ -2,16 +2,15 @@ package com.dicoding.android.intermediate.storyapp.ui
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityLoginBinding
 import com.dicoding.android.intermediate.storyapp.repo.UserPreferences
-import com.dicoding.android.intermediate.storyapp.ui.customview.LoginResultFragment
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModel
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModelFactory
 

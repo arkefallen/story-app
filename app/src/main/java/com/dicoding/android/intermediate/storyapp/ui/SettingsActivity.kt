@@ -1,12 +1,12 @@
 package com.dicoding.android.intermediate.storyapp.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.android.intermediate.storyapp.R
 import com.dicoding.android.intermediate.storyapp.databinding.ActivitySettingsBinding
 import com.dicoding.android.intermediate.storyapp.repo.UserPreferences

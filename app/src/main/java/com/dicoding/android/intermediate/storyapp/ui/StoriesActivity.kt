@@ -2,13 +2,13 @@ package com.dicoding.android.intermediate.storyapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.android.intermediate.storyapp.data.response.Story
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityStoriesBinding
 import com.dicoding.android.intermediate.storyapp.repo.UserPreferences
+import com.dicoding.android.intermediate.storyapp.ui.customview.LoadingStateAdapter
 import com.dicoding.android.intermediate.storyapp.ui.customview.StoryAdapter
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModel
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModelFactory
@@ -17,7 +17,6 @@ import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModelFac
 
 class StoriesActivity : AppCompatActivity() {
     private lateinit var storiesBinding: ActivityStoriesBinding
-    private lateinit var stories : ArrayList<Story>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,37 +68,23 @@ class StoriesActivity : AppCompatActivity() {
 
                     val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(it) }
 
-                    storyViewModel.getStories(1,10,1)
-
-                    storyViewModel.getAllStories().observe(
+                    storyViewModel.getStories().observe(
                         this, {
                             if (it != null) {
-                                val adapter = StoryAdapter(it)
-                                storiesBinding.rvStory.adapter = adapter
+                                val adapter = StoryAdapter()
+                                storiesBinding.rvStory.adapter = adapter.withLoadStateFooter(
+                                    footer = LoadingStateAdapter {
+                                        adapter.retry()
+                                    }
+                                )
                                 storiesBinding.rvStory.setHasFixedSize(true)
-
-                                stories = ArrayList()
-
-                                it.forEach {
-                                    stories.add(it)
-                                }
-
-                                val maps = storiesBinding.maps
-                                maps.setOnClickListener {
-                                    val userLocationIntent = Intent(this@StoriesActivity, UserStoriesLocationActivity::class.java)
-                                    userLocationIntent.putParcelableArrayListExtra(UserStoriesLocationActivity.EXTRA_USER_STORIES, stories)
-                                    startActivity(userLocationIntent)
-                                }
+                                adapter.submitData(lifecycle, it)
                             }
                         }
                     )
                 }
             }
         )
-
-//        if (stories != null) {
-//
-//        }
 
         val settings = storiesBinding.settings
         settings.setOnClickListener {

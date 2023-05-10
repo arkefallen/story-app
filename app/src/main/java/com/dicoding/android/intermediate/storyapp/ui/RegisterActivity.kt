@@ -1,13 +1,11 @@
 package com.dicoding.android.intermediate.storyapp.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityRegisterBinding
-import com.dicoding.android.intermediate.storyapp.ui.customview.RegisterResultFragment
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModel
 import com.dicoding.android.intermediate.storyapp.ui.viewmodel.AuthViewModelFactory
 

@@ -1,13 +1,12 @@
 package com.dicoding.android.intermediate.storyapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.android.intermediate.storyapp.R
 import com.dicoding.android.intermediate.storyapp.data.response.Story
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityUserStoriesLocationBinding
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

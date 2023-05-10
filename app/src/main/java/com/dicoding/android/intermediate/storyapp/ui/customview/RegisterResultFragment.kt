@@ -1,7 +1,5 @@
 package com.dicoding.android.intermediate.storyapp.ui.customview
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
