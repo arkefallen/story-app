@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
         loginBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(loginBinding.root)
 
-        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance(this)}
+        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance()}
         val preferences = UserPreferences.getInstance(dataStore)
         authViewModel.setPreferences(preferences)
 

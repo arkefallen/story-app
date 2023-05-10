@@ -3,11 +3,10 @@ package com.dicoding.android.intermediate.storyapp.repo
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.liveData
+import androidx.paging.*
 import com.dicoding.android.intermediate.storyapp.data.StoryPagingSource
+import com.dicoding.android.intermediate.storyapp.data.local.StoryDatabase
+import com.dicoding.android.intermediate.storyapp.data.local.StoryRemoteMediator
 import com.dicoding.android.intermediate.storyapp.data.remote.APIService
 import com.dicoding.android.intermediate.storyapp.data.response.PostStoryResponse
 import com.dicoding.android.intermediate.storyapp.data.response.Story
@@ -19,6 +18,7 @@ import retrofit2.Response
 
 
 class StoryRepository private constructor(
+    private val storyDatabase: StoryDatabase,
     private val apiService: APIService
 ){
     private val _isLoadingLiveData = MutableLiveData<Boolean>()
@@ -27,16 +27,16 @@ class StoryRepository private constructor(
     private val _uploadStoryLiveData = MutableLiveData<PostStoryResponse>()
     val uploadStoryResponse : LiveData<PostStoryResponse> = _uploadStoryLiveData
 
-    private val _listStoryLiveData = MutableLiveData<List<Story>?>()
-    val listStory : LiveData<List<Story>?> = _listStoryLiveData
-
     fun getStories() : LiveData<PagingData<Story>> {
+        @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 4
             ),
+            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = {
-                StoryPagingSource(apiService)
+//                StoryPagingSource(apiService)
+                storyDatabase.storyDao().getAllStories()
             }
         ).liveData
     }
@@ -113,10 +113,11 @@ class StoryRepository private constructor(
         private var instance: StoryRepository? = null
 
         fun getInstance(
+            storyDatabase: StoryDatabase,
             apiService: APIService,
         ) : StoryRepository =
             instance ?: synchronized(this) {
-                instance ?: StoryRepository(apiService)
+                instance ?: StoryRepository(storyDatabase, apiService)
             }.also { instance = it }
     }
 }

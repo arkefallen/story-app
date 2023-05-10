@@ -1,5 +1,7 @@
 package com.dicoding.android.intermediate.storyapp.repo
 
+import android.content.Context
+import com.dicoding.android.intermediate.storyapp.data.local.StoryDatabase
 import com.dicoding.android.intermediate.storyapp.data.remote.APIConfig
 
 object Injection {
@@ -8,8 +10,9 @@ object Injection {
         return Authentication.getInstance(apiService)
     }
 
-    fun provideUserAuth(token: String) : StoryRepository {
+    fun provideUserAuth(token: String, context: Context) : StoryRepository {
         val apiService = APIConfig.getAppService(token)
-        return StoryRepository.getInstance(apiService)
+        val storyDatabase = StoryDatabase.getDatabase(context)
+        return StoryRepository.getInstance(storyDatabase, apiService)
     }
 }

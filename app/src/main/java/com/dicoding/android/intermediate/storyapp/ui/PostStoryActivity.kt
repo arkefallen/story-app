@@ -201,7 +201,7 @@ class PostStoryActivity : AppCompatActivity() {
                 requestImageFile
             )
 
-            val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(token) }
+            val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(token,  this@PostStoryActivity) }
             storyViewModel.addStory(imageMultipart, description)
             storyViewModel.getPostStoryReponses().observe(
                 this, {

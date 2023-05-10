@@ -1,6 +1,5 @@
 package com.dicoding.android.intermediate.storyapp.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.android.intermediate.storyapp.repo.Authentication
@@ -18,7 +17,7 @@ class AuthViewModelFactory private constructor(private val authentication: Authe
     companion object {
         private var instance: AuthViewModelFactory? = null
 
-        fun getInstance(context: Context) : AuthViewModelFactory =
+        fun getInstance() : AuthViewModelFactory =
             instance ?: synchronized(this) {
                 instance ?: AuthViewModelFactory(Injection.provideAuth())
             }.also {

@@ -31,7 +31,7 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
         }
 
-        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance(this) }
+        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance() }
         val userPreferences = UserPreferences.getInstance(dataStore)
         authViewModel.setPreferences(userPreferences)
 

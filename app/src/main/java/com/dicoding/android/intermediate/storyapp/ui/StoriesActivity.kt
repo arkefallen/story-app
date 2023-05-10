@@ -25,7 +25,7 @@ class StoriesActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance(this) }
+        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance() }
         val preferences = UserPreferences.getInstance(dataStore)
         authViewModel.setPreferences(preferences)
 
@@ -59,14 +59,14 @@ class StoriesActivity : AppCompatActivity() {
                     }
 
                     val fabInsertStory = storiesBinding.fabInsertStory
-                    fabInsertStory.setOnClickListener { view ->
+                    fabInsertStory.setOnClickListener { _ ->
                         val postStoryIntent = Intent(this, PostStoryActivity::class.java).apply {
                             this.putExtra(PostStoryActivity.EXTRA_USER_TOKEN, it)
                         }
                         startActivity(postStoryIntent)
                     }
 
-                    val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(it) }
+                    val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(it, this@StoriesActivity) }
 
                     storyViewModel.getStories().observe(
                         this, {

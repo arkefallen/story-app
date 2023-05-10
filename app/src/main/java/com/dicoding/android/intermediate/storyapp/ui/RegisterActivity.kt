@@ -19,7 +19,7 @@ class RegisterActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         
-        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance(this)}
+        val authViewModel : AuthViewModel by viewModels { AuthViewModelFactory.getInstance()}
 
         val btnRegister = registerBinding.btnRegister
         btnRegister.setOnClickListener {
