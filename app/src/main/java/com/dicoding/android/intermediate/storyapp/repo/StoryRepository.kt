@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.*
 import com.dicoding.android.intermediate.storyapp.data.StoryPagingSource
 import com.dicoding.android.intermediate.storyapp.data.local.StoryDatabase
-import com.dicoding.android.intermediate.storyapp.data.local.StoryRemoteMediator
 import com.dicoding.android.intermediate.storyapp.data.remote.APIService
 import com.dicoding.android.intermediate.storyapp.data.response.PostStoryResponse
 import com.dicoding.android.intermediate.storyapp.data.response.Story
+import com.dicoding.android.intermediate.storyapp.data.response.UserStoriesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -27,48 +27,50 @@ class StoryRepository private constructor(
     private val _uploadStoryLiveData = MutableLiveData<PostStoryResponse>()
     val uploadStoryResponse : LiveData<PostStoryResponse> = _uploadStoryLiveData
 
-    fun getStories() : LiveData<PagingData<Story>> {
-        @OptIn(ExperimentalPagingApi::class)
+    private val _listStoryLiveData = MutableLiveData<List<Story>>()
+    val listStoryResponse : LiveData<List<Story>> = _listStoryLiveData
+
+    fun getPagingStories() : LiveData<PagingData<Story>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 4
             ),
-            remoteMediator = StoryRemoteMediator(storyDatabase, apiService),
             pagingSourceFactory = {
-//                StoryPagingSource(apiService)
-                storyDatabase.storyDao().getAllStories()
+                StoryPagingSource(apiService)
             }
         ).liveData
     }
 
-//    fun getStories(
-//        page: Int,
-//        size: Int,
-//        location: Int
-//    ) {
-//        _isLoadingLiveData.value = false
-//
-//        val client = apiService.getStories(page,size,location)
-//
-//        client.enqueue(
-//            object : Callback<UserStoriesResponse> {
-//                override fun onResponse(
-//                    call: Call<UserStoriesResponse>,
-//                    response: Response<UserStoriesResponse>
-//                ) {
-//                    _isLoadingLiveData.value = true
-//                    val responseBody = response.body()
-//                    Log.e(TAG, "onResponse: ${response.message()}")
-//                    _listStoryLiveData.value = responseBody?.listStory
-//                }
-//
-//                override fun onFailure(call: Call<UserStoriesResponse>, t: Throwable) {
-//                    Log.e(TAG, "onFailure: ${t.message}")
-//                    _listStoryLiveData.value = ArrayList()
-//                }
-//            }
-//        )
-//    }
+    fun getLiveStories(
+        page: Int,
+        size: Int,
+        location: Int
+    ) {
+        _isLoadingLiveData.value = false
+
+        val client = apiService.getStoriesByNetwork(page, size, location)
+
+        client.enqueue(
+            object : Callback<UserStoriesResponse> {
+                override fun onResponse(
+                    call: Call<UserStoriesResponse>,
+                    response: Response<UserStoriesResponse>
+                ) {
+                    _isLoadingLiveData.value = true
+                    val responseBody = response.body()
+                    Log.e(TAG, "onResponse: ${response.message()}")
+                    if (responseBody != null) {
+                        _listStoryLiveData.value = responseBody?.listStory!!
+                    }
+                }
+
+                override fun onFailure(call: Call<UserStoriesResponse>, t: Throwable) {
+                    Log.e(TAG, "onFailure: ${t.message}")
+                    _listStoryLiveData.value = ArrayList()
+                }
+            }
+        )
+    }
 
     fun addStory(
         image : MultipartBody.Part,

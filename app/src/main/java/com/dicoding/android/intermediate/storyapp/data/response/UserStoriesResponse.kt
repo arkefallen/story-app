@@ -46,7 +46,7 @@ data class Story(
 	@PrimaryKey(false)
 	@ColumnInfo("id")
 	@field:SerializedName("id")
-	val id: String? = null,
+	val id: String,
 
 	@ColumnInfo("lat")
 	@field:SerializedName("lat")

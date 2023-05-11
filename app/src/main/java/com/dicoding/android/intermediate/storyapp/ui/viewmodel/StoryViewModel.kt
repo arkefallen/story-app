@@ -13,7 +13,17 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class StoryViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    fun getStories() : LiveData<PagingData<Story>> = storyRepository.getStories().cachedIn(viewModelScope)
+    fun getPagingStories() : LiveData<PagingData<Story>> = storyRepository.getPagingStories().cachedIn(viewModelScope)
+
+    fun getNetworkStories() : LiveData<List<Story>> = storyRepository.listStoryResponse
+
+    fun setStoryCalling(
+        page: Int,
+        size: Int,
+        location: Int
+    ) {
+        storyRepository.getLiveStories(page, size, location)
+    }
 
     fun addStory(
         image : MultipartBody.Part,

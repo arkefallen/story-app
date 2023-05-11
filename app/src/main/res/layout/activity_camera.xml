@@ -17,6 +17,7 @@
 
     <ImageView
         android:id="@+id/cam_capture"
+        android:contentDescription="@string/image_preview_desc"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="32dp"

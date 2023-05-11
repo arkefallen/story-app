@@ -3,10 +3,13 @@ package com.dicoding.android.intermediate.storyapp.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.dicoding.android.intermediate.storyapp.R
 import com.dicoding.android.intermediate.storyapp.data.response.Story
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityUserStoriesLocationBinding
+import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModel
+import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -109,6 +112,7 @@ class UserStoriesLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     companion object {
+        val EXTRA_USER_TOKEN = "extra_user_token"
         val EXTRA_USER_STORIES = "extra_user_stories"
     }
 }

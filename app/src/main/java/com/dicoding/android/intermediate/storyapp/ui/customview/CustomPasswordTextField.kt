@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatEditText
+import com.dicoding.android.intermediate.storyapp.R
 
 class CustomPasswordTextField : AppCompatEditText{
 
@@ -32,7 +33,7 @@ class CustomPasswordTextField : AppCompatEditText{
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (s != null) {
                         if (s.length >= 0 && s.length < 8) {
-                            error = "Password minimal harus 8 karakter"
+                            error = resources.getString(R.string.password_error_notif)
                         } else {
                             error = null
                         }

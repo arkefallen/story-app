@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class UserPreferences private constructor(private val dataStore: DataStore<Preferences>){
-    private val tokenKey = stringPreferencesKey("token")
-    private val nameKey = stringPreferencesKey("name")
+    private val tokenKey = stringPreferencesKey(KEY_PREFERENCES_TOKEN)
+    private val nameKey = stringPreferencesKey(KEY_PREFERENCES_NAME)
 
     fun getUserName() : Flow<String> {
         return dataStore.data.map {
@@ -45,6 +45,8 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
     }
 
     companion object {
+        private const val KEY_PREFERENCES_TOKEN = "token"
+        private const val KEY_PREFERENCES_NAME = "name"
         private var INSTANCE : UserPreferences? = null
 
         fun getInstance(dataStore: DataStore<Preferences>) : UserPreferences {

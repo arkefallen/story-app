@@ -2,10 +2,12 @@ package com.dicoding.android.intermediate.storyapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.android.intermediate.storyapp.data.response.Story
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityStoriesBinding
 import com.dicoding.android.intermediate.storyapp.repo.UserPreferences
 import com.dicoding.android.intermediate.storyapp.ui.customview.LoadingStateAdapter
@@ -17,6 +19,7 @@ import com.dicoding.android.intermediate.storyapp.ui.viewmodel.StoryViewModelFac
 
 class StoriesActivity : AppCompatActivity() {
     private lateinit var storiesBinding: ActivityStoriesBinding
+    private var userToken : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,8 +44,8 @@ class StoriesActivity : AppCompatActivity() {
         )
 
         authViewModel.getUserLoginToken()?.observe(
-            this, {
-                if (it.isEmpty() || it == "" || it == null) {
+            this, { token ->
+                if (token.isEmpty() || token == "" || token == null) {
                     storiesBinding.apply {
                         this.settings.visibility = View.GONE
                         this.tvWelcome.visibility = View.GONE
@@ -50,6 +53,7 @@ class StoriesActivity : AppCompatActivity() {
                         this.loading.visibility = View.VISIBLE
                     }
                 } else {
+
                     storiesBinding.apply {
                         this.settings.visibility = View.VISIBLE
                         this.tvWelcome.visibility = View.VISIBLE
@@ -61,14 +65,31 @@ class StoriesActivity : AppCompatActivity() {
                     val fabInsertStory = storiesBinding.fabInsertStory
                     fabInsertStory.setOnClickListener { _ ->
                         val postStoryIntent = Intent(this, PostStoryActivity::class.java).apply {
-                            this.putExtra(PostStoryActivity.EXTRA_USER_TOKEN, it)
+                            this.putExtra(PostStoryActivity.EXTRA_USER_TOKEN, token)
                         }
                         startActivity(postStoryIntent)
                     }
 
-                    val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(it, this@StoriesActivity) }
+                    val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(token, this@StoriesActivity) }
 
-                    storyViewModel.getStories().observe(
+                    storyViewModel.setStoryCalling(1,15,1)
+                    storyViewModel.getNetworkStories().observe(
+                        this, {
+                            val userStories : ArrayList<Story> = ArrayList()
+                            it.forEach {
+                                userStories.add(it)
+                            }
+                            val userStoriesLocation = storiesBinding.maps
+                            userStoriesLocation.setOnClickListener {
+                                val mapsIntent = Intent(this@StoriesActivity, UserStoriesLocationActivity::class.java).apply {
+                                    this.putParcelableArrayListExtra(UserStoriesLocationActivity.EXTRA_USER_STORIES, userStories)
+                                }
+                                startActivity(mapsIntent)
+                            }
+                        }
+                    )
+
+                    storyViewModel.getPagingStories().observe(
                         this, {
                             if (it != null) {
                                 val adapter = StoryAdapter()
