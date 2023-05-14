@@ -206,7 +206,10 @@ class PostStoryActivity : AppCompatActivity() {
             storyViewModel.getPostStoryReponses().observe(
                 this, {
                     if (it.error == false) {
+                        val storyIntent = Intent(this@PostStoryActivity, StoriesActivity::class.java)
+                        startActivity(storyIntent)
                         finish()
+                        Toast.makeText(applicationContext, "Story terupload", Toast.LENGTH_SHORT)
                     } else {
                         Toast.makeText(this@PostStoryActivity, "Gagal upload story", Toast.LENGTH_SHORT)
                     }

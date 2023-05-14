@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.*
 import com.dicoding.android.intermediate.storyapp.data.StoryPagingSource
 import com.dicoding.android.intermediate.storyapp.data.local.StoryDatabase
+import com.dicoding.android.intermediate.storyapp.data.local.StoryRemoteMediator
 import com.dicoding.android.intermediate.storyapp.data.remote.APIService
 import com.dicoding.android.intermediate.storyapp.data.response.PostStoryResponse
 import com.dicoding.android.intermediate.storyapp.data.response.Story
@@ -33,7 +34,7 @@ class StoryRepository private constructor(
     fun getPagingStories() : LiveData<PagingData<Story>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 4
+                pageSize = 5,
             ),
             pagingSourceFactory = {
                 StoryPagingSource(apiService)
@@ -88,7 +89,7 @@ class StoryRepository private constructor(
                 ) {
                     _isLoadingLiveData.value = true
                     val responseBody = response.body()
-                    Log.e(TAG, "onResponse: ${response.message()}")
+                    Log.e(TAG, "onResponse: Berhasil upload gambar")
                     if (responseBody != null) {
                         val uploadStoryResponse = PostStoryResponse(
                             responseBody.error,

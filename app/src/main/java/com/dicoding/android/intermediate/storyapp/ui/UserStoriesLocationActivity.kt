@@ -5,6 +5,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.dicoding.android.intermediate.storyapp.R
 import com.dicoding.android.intermediate.storyapp.data.response.Story
 import com.dicoding.android.intermediate.storyapp.databinding.ActivityUserStoriesLocationBinding
@@ -19,7 +21,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 
 class UserStoriesLocationActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    private lateinit var storyViewModel : StoryViewModel
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityUserStoriesLocationBinding
     private val boundsBuilder = LatLngBounds.Builder()
@@ -29,6 +31,11 @@ class UserStoriesLocationActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding = ActivityUserStoriesLocationBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val token = intent.getStringExtra(EXTRA_USER_TOKEN).toString()
+        val storyViewModelFactory = StoryViewModelFactory.getInstance(token, this@UserStoriesLocationActivity)
+        storyViewModel = ViewModelProvider(this@UserStoriesLocationActivity, storyViewModelFactory)
+            .get(StoryViewModel::class.java)
 
         supportActionBar?.title = "User Stories Location"
         supportActionBar?.setHomeButtonEnabled(true)
@@ -52,26 +59,29 @@ class UserStoriesLocationActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        val stories = intent.getParcelableArrayListExtra<Story>(EXTRA_USER_STORIES)
+        storyViewModel.setStoryCalling(1, 20, 1)
+        storyViewModel.getNetworkStories().observe(
+            this, { stories ->
+                stories?.forEach{ story ->
+                    val userStoryPosition = LatLng(story.lat?.toDouble()!!, story.lon?.toDouble()!!)
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .position(userStoryPosition)
+                            .title("Cerita dari ${story.name.toString()}")
+                    )
+                    boundsBuilder.include(userStoryPosition)
+                }
 
-        stories?.forEach{ story ->
-            val userStoryPosition = LatLng(story.lat?.toDouble()!!, story.lon?.toDouble()!!)
-            mMap.addMarker(
-                MarkerOptions()
-                    .position(userStoryPosition)
-                    .title("Cerita dari ${story.name.toString()}")
-            )
-            boundsBuilder.include(userStoryPosition)
-        }
-
-        val bounds: LatLngBounds = boundsBuilder.build()
-        mMap.animateCamera(
-            CameraUpdateFactory.newLatLngBounds(
-                bounds,
-                resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels,
-                300
-            )
+                val bounds: LatLngBounds = boundsBuilder.build()
+                mMap.animateCamera(
+                    CameraUpdateFactory.newLatLngBounds(
+                        bounds,
+                        resources.displayMetrics.widthPixels,
+                        resources.displayMetrics.heightPixels,
+                        300
+                    )
+                )
+            }
         )
 
         // Add a marker in Sydney and move the camera

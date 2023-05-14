@@ -2,7 +2,8 @@ package com.dicoding.android.intermediate.storyapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -71,36 +72,23 @@ class StoriesActivity : AppCompatActivity() {
                     }
 
                     val storyViewModel : StoryViewModel by viewModels { StoryViewModelFactory.getInstance(token, this@StoriesActivity) }
-
-                    storyViewModel.setStoryCalling(1,15,1)
-                    storyViewModel.getNetworkStories().observe(
-                        this, {
-                            val userStories : ArrayList<Story> = ArrayList()
-                            it.forEach {
-                                userStories.add(it)
-                            }
-                            val userStoriesLocation = storiesBinding.maps
-                            userStoriesLocation.setOnClickListener {
-                                val mapsIntent = Intent(this@StoriesActivity, UserStoriesLocationActivity::class.java).apply {
-                                    this.putParcelableArrayListExtra(UserStoriesLocationActivity.EXTRA_USER_STORIES, userStories)
-                                }
-                                startActivity(mapsIntent)
-                            }
+                    val userStoriesLocation = storiesBinding.maps
+                    userStoriesLocation.setOnClickListener {
+                        val mapsIntent = Intent(this@StoriesActivity, UserStoriesLocationActivity::class.java).apply {
+                            this.putExtra(UserStoriesLocationActivity.EXTRA_USER_TOKEN, token)
                         }
-                    )
+                        startActivity(mapsIntent)
+                    }
 
                     storyViewModel.getPagingStories().observe(
                         this, {
-                            if (it != null) {
-                                val adapter = StoryAdapter()
-                                storiesBinding.rvStory.adapter = adapter.withLoadStateFooter(
-                                    footer = LoadingStateAdapter {
-                                        adapter.retry()
-                                    }
-                                )
-                                storiesBinding.rvStory.setHasFixedSize(true)
-                                adapter.submitData(lifecycle, it)
-                            }
+                            val adapter = StoryAdapter()
+                            storiesBinding.rvStory.adapter = adapter.withLoadStateFooter(
+                                footer = LoadingStateAdapter {
+                                    adapter.retry()
+                                }
+                            )
+                            adapter.submitData(lifecycle, it)
                         }
                     )
                 }
